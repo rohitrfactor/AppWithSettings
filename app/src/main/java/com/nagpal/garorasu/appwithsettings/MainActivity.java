@@ -21,14 +21,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        PreferenceManager.setDefaultValues(this, R.xml.preferences,	false);
+        PreferenceManager.setDefaultValues(this,	R.xml.pref_general,	false);
+        PreferenceManager.setDefaultValues(this,	R.xml.pref_notification,	false);
+        PreferenceManager.setDefaultValues(this,	R.xml.pref_account,	false);
 
+        SharedPreferences	sharedPref	=
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String	marketPref	=	sharedPref.getString("sync_frequency",	"-1");
+        Toast.makeText(this,	marketPref,	Toast.LENGTH_SHORT).show();
+/*
         SharedPreferences sharedPref	=
                 PreferenceManager.getDefaultSharedPreferences(this);
+
         Boolean	switchPref	=	sharedPref.getBoolean
                 (SettingsActivity.KEY_PREF_EXAMPLE_SWITCH,	false);
 
         Toast.makeText(this,switchPref.toString(),	Toast.LENGTH_SHORT).show();
+*/
     }
 
     @Override
@@ -47,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent	intent	=	new Intent(this,	SettingsActivity.class);
+            Intent	intent	=	new Intent(this,SettingsActivity.class);
             startActivity(intent);
             return true;
         }
